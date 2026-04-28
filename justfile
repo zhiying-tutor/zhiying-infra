@@ -1,8 +1,10 @@
+# Start postgres + rabbitmq and block until both healthchecks pass.
 serve:
   @docker compose up -d --wait \
     && printf '\033[32m✔\033[0m zhiying-infra \033[32mReady\033[0m\n' \
     || (printf '\033[31m✗\033[0m zhiying-infra \033[31mFailed\033[0m\n'; exit 1)
 
+# Tear down containers (named volumes preserved).
 stop:
   @if [ -n "$(docker compose ps -q)" ]; then \
      docker compose down \
